@@ -28,9 +28,8 @@ var
 
 implementation
 
-constructor TLayeredForm.Create( AOwner: TComponent );
-begin
-  inherited Create(AOwner);
+constructor TLayeredForm.Create( AOwner: TComponent ); begin
+  inherited CreateNew( AOwner, 0 );
   BorderStyle := bsNone;
   Position := poScreenCenter;
   ClientWidth := 300;
