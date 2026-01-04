@@ -7,6 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls;
 
 type
+  TFormClass = class of TForm;
+
   TMainForm = class(TForm)
     ButtonOpenGDIP: TButton;
     TrackBarOpacity: TTrackBar;
@@ -22,6 +24,7 @@ type
     FGDIPChildForm: TForm;
     FVCLChildForm: TForm;
     FLayeredForm: TForm;
+    procedure ShowChild( var F: TForm; AClass: TFormClass );
   public
     { Public declarations }
   end;
@@ -43,37 +46,41 @@ begin
   TrackBarOpacity.Position := 50;
 end;
 
-procedure TMainForm.TrackBarOpacityChange(Sender: TObject);
-begin
-  LabelOpacity.Caption := Format( 'Непрозрачность: %d%%', [ TrackBarOpacity.Position ] );
-end;
-
-procedure TMainForm.ButtonOpenLayeredClick(Sender: TObject);
-begin
-  if not Assigned( FLayeredForm ) then begin
-    FLayeredForm := TLayeredForm.Create( Self );
-    FLayeredForm.Show;
+procedure TMainForm.ShowChild(var F: TForm; AClass: TFormClass ); begin
+  if not Assigned( F ) then begin
+    F := AClass.Create( Self );
+    F.Show;
   end
   else
-    FLayeredForm.Hide;
+    F.Visible := not F.Visible;
+end;
+
+procedure TMainForm.TrackBarOpacityChange(Sender: TObject); begin
+  LabelOpacity.Caption := Format( 'Непрозрачность: %d%%', [ TrackBarOpacity.Position ] );
+  if Assigned( FGDIPChildForm ) then
+  try TGDIPChildForm( FGDIPChildForm ).MaxOpacity := TrackBarOpacity.Position;
+  except //
+  end;
+  if Assigned( FVCLChildForm ) then
+  try TVCLChildForm( FVCLChildForm ).MaxOpacity :=  TrackBarOpacity.Position;
+  except //
+  end;
+  if Assigned( FLayeredForm ) then
+  try TLayeredForm( FLayeredForm ).SetAlphaLevel( TrackBarOpacity.Position );
+  except //
+  end;
+end;
+
+procedure TMainForm.ButtonOpenLayeredClick(Sender: TObject); begin
+  ShowChild( FLayeredForm, TLayeredForm );
 end;
 
 procedure TMainForm.ButtonOpenGDIPClick(Sender: TObject); begin
-  if not Assigned( FGDIPChildForm ) then begin
-    FGDIPChildForm := TGDIPChildForm.CreateForm( Self );
-    FGDIPChildForm.Show;
-  end
-  else
-    FGDIPChildForm.Hide;
+  ShowChild( FGDIPChildForm, TGDIPChildForm );
 end;
 
 procedure TMainForm.ButtonOpenVCLClick(Sender: TObject); begin
-  if not Assigned( FVCLChildForm ) then begin
-    FVCLChildForm := TVCLChildForm.CreateForm( Self );
-    FVCLChildForm.Show;
-  end
-  else
-    FVCLChildForm.Hide;
+  ShowChild( FVCLChildForm, TVCLChildForm );
 end;
 
 end.

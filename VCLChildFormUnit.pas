@@ -12,14 +12,12 @@ type
     procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure FormPaint(Sender: TObject);
   private
-    { Private declarations }
     FXOffset, FYOffset: Integer;
     FMaxOpacity: Integer;
     procedure DrawGradient(const ARect: TRect);
   public
-    { Public declarations }
+    constructor Create( AOwner: TComponent ); override;
     property MaxOpacity: Integer read FMaxOpacity write FMaxOpacity;
-    class function CreateForm(AOwner: TComponent): TVCLChildForm;
   end;
 
 var
@@ -29,17 +27,17 @@ implementation
 
 uses System.Math;
 
-class function TVCLChildForm.CreateForm(AOwner: TComponent): TVCLChildForm; begin
-  Result := Self.CreateNew( AOwner, 0 );
-  Result.BorderStyle := bsNone;
-  Result.Position := poScreenCenter;
-  Result.ClientWidth := 300;
-  Result.ClientHeight := 200;
-  Result.Color := clBlack;
-  Result.DoubleBuffered := True;
-  Result.OnMouseDown := Result.FormMouseDown;
-  Result.OnMouseMove := Result.FormMouseMove;
-  Result.OnPaint := Result.FormPaint;
+constructor TVCLChildForm.Create(AOwner: TComponent); begin
+  inherited CreateNew( AOwner, 0 );
+  BorderStyle := bsNone;
+  Position := poScreenCenter;
+  ClientWidth := 300;
+  ClientHeight := 200;
+  Color := clBlack;
+  DoubleBuffered := True;
+  OnMouseDown := FormMouseDown;
+  OnMouseMove := FormMouseMove;
+  OnPaint := FormPaint;
 end;
 
 procedure TVCLChildForm.DrawGradient( const ARect: TRect );
