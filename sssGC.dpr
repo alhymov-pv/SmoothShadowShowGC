@@ -5,7 +5,8 @@ uses
   MainFormUnit in 'MainFormUnit.pas' {MainForm},
   GDIPChildFormUnit in 'GDIPChildFormUnit.pas',
   VCLChildFormUnit in 'VCLChildFormUnit.pas',
-  GDIPlusImport in 'GDIPlusImport.pas';
+  GDIPlusImport in 'GDIPlusImport.pas',
+  LayeredFormUnit in 'LayeredFormUnit.pas';
 
 {$R *.res}
 

@@ -130,6 +130,7 @@
         <DCCReference Include="GDIPChildFormUnit.pas"/>
         <DCCReference Include="VCLChildFormUnit.pas"/>
         <DCCReference Include="GDIPlusImport.pas"/>
+        <DCCReference Include="LayeredFormUnit.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

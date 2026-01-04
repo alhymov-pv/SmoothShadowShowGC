@@ -13,36 +13,45 @@ object MainForm: TMainForm
   OnCreate = FormCreate
   TextHeight = 15
   object LabelOpacity: TLabel
-    Left = 136
-    Top = 168
+    Left = 272
+    Top = 72
     Width = 69
     Height = 15
     Caption = 'LabelOpacity'
   end
   object ButtonOpenGDIP: TButton
-    Left = 136
-    Top = 120
-    Width = 97
+    Left = 32
+    Top = 48
+    Width = 129
     Height = 25
     Caption = 'ButtonOpen gdip'
     TabOrder = 0
     OnClick = ButtonOpenGDIPClick
   end
   object TrackBarOpacity: TTrackBar
-    Left = 136
-    Top = 199
+    Left = 184
+    Top = 103
     Width = 233
     Height = 45
     TabOrder = 1
     OnChange = TrackBarOpacityChange
   end
   object ButtonOpenVCL: TButton
-    Left = 264
-    Top = 120
-    Width = 105
+    Left = 32
+    Top = 91
+    Width = 129
     Height = 25
     Caption = 'ButtonOpen vcl'
     TabOrder = 2
     OnClick = ButtonOpenVCLClick
+  end
+  object ButtonOpenLayered: TButton
+    Left = 32
+    Top = 131
+    Width = 129
+    Height = 25
+    Caption = 'ButtonOpen Layered'
+    TabOrder = 3
+    OnClick = ButtonOpenLayeredClick
   end
 end
